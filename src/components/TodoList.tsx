@@ -1,15 +1,29 @@
+import { FormControlLabel } from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
+import { useAppDispatch, useAppSelector } from "../hooks";
+
 const TodoList = () => {
-  const sampleTodos = [
-    { id: 1, text: "Read a book", checked: false },
-    { id: 2, text: "Do homework", checked: false },
-    { id: 3, text: "Feed the bird", checked: true },
-  ];
+  const todos = useAppSelector((state) => state.todos);
+  const dispatch = useAppDispatch();
+
+  const handleChange = (id: number, checked: boolean) => {
+    dispatch({ type: "todos/toggleTodo", payload: { id, checked } });
+  };
+
   return (
     <div>
       <ul>
-        {sampleTodos.map(({ id, text, checked }) => (
+        {todos.map(({ id, text, checked }) => (
           <li key={id}>
-            {text} <input type="checkbox" checked={checked} />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={(e) => handleChange(id, e.target.checked)}
+                />
+              }
+              label={text}
+            />
           </li>
         ))}
       </ul>
