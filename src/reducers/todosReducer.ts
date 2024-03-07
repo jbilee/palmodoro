@@ -1,27 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Todo = {
-  id: number;
+  id?: number;
   text: string;
   checked: boolean;
 };
 
-const initialState: Todo[] = [
-  { id: 1, text: "hey", checked: false },
-  { id: 2, text: "babo", checked: false },
-  { id: 3, text: ":)", checked: true },
-];
+const initialState: Todo[] = [];
 
 const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    addTodo: (state, action: PayloadAction<Todo>) => {
-      return [...state, action.payload];
+    addTodo: (state, { payload: { text } }: PayloadAction<Todo>) => {
+      const newTodo = {
+        id: state.length,
+        text,
+        checked: false,
+      };
+      return [...state, newTodo];
     },
     deleteTodo: (state, action: PayloadAction<number>) => {
-      const newTodos = state.filter((state) => state.id !== action.payload);
-      return [...newTodos];
+      const remainingTodos = state.filter(
+        (state) => state.id !== action.payload
+      );
+      return [...remainingTodos];
     },
     toggleTodo: (
       state,

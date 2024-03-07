@@ -19,7 +19,7 @@ const TodoList = () => {
               control={
                 <Checkbox
                   checked={checked}
-                  onChange={(e) => handleChange(id, e.target.checked)}
+                  onChange={(e) => handleChange(id as number, e.target.checked)}
                 />
               }
               label={text}
