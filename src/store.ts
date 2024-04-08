@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todosReducer from "./reducers/todosReducer";
 import timerReducer from "./reducers/timerReducer";
+import todosReducer from "./reducers/todosReducer";
+import wallpaperReducer from "./reducers/wallpaperReducer";
 
 export const store = configureStore({
   reducer: {
     todos: todosReducer,
     timer: timerReducer,
+    wallpaper: wallpaperReducer,
   },
 });
 

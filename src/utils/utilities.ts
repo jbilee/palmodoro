@@ -13,3 +13,5 @@ export const calculateSeconds = (time: number) => {
     Math.floor((time - Math.floor(time / 3600) * 3600) / 60) * 60
   );
 };
+
+export const getRandomValue = (cap: number) => Math.floor(Math.random() * (cap + 1));
