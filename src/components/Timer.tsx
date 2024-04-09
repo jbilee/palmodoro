@@ -2,22 +2,22 @@ import { useRef } from "react";
 import { FaStopCircle } from "react-icons/fa";
 import { InteractiveIcon } from "./TimerContainer";
 import { calculateHours, calculateMinutes, calculateSeconds } from "../utils/utilities";
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 interface TimerProps {
   hour: number;
   minute: number;
+  intervalId: MutableRefObject<number | null>;
   setIsRunning: Dispatch<SetStateAction<boolean>>;
   changeMode: () => void;
 }
 
-function Timer({ hour, minute, setIsRunning, changeMode }: TimerProps) {
+function Timer({ hour, minute, intervalId, setIsRunning, changeMode }: TimerProps) {
   const elem = useRef(null);
-  let id: number | null = null;
   let timeLeft = hour * 3600 + minute * 60;
 
   const stopTimer = () => {
-    clearInterval(id as number);
+    clearInterval(intervalId.current as number);
     document.title = "Palmodoro";
     setIsRunning(false);
   };
@@ -34,11 +34,11 @@ function Timer({ hour, minute, setIsRunning, changeMode }: TimerProps) {
   };
 
   const startTimer = () => {
-    id = setInterval(() => {
+    intervalId.current = setInterval(() => {
       if (timeLeft === 1) {
         timeLeft -= 1;
         updateTime();
-        clearInterval(id as number);
+        clearInterval(intervalId.current as number);
         return changeMode();
       }
       timeLeft -= 1;

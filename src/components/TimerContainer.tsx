@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { FaPlayCircle, FaUndoAlt } from "react-icons/fa";
 import Timer from "./Timer";
@@ -10,6 +10,7 @@ import type { TimeFormat } from "../reducers/timerReducer";
 
 const TimerContainer = () => {
   const [isRunning, setIsRunning] = useState(false);
+  const intervalId = useRef<null | number>(null);
   const currentMode = useAppSelector((state) => state.timer.currentMode);
   const currentTime = useAppSelector(
     (state) => state.timer[currentMode as keyof typeof state.timer] as TimeFormat
@@ -28,7 +29,14 @@ const TimerContainer = () => {
       .padStart(2, "0")}:00`;
   };
 
-  const handleModeClick = (mode: string) => dispatch(selectMode(mode));
+  const handleModeClick = (mode: string) => {
+    if (isRunning) {
+      clearInterval(intervalId.current as number);
+      setIsRunning(false);
+      document.title = "Palmodoro";
+    }
+    dispatch(selectMode(mode));
+  };
 
   const handleReset = () => dispatch(resetCycle());
 
@@ -54,6 +62,7 @@ const TimerContainer = () => {
         <Timer
           hour={currentTime.hours}
           minute={currentTime.minutes}
+          intervalId={intervalId}
           setIsRunning={setIsRunning}
           changeMode={changeMode}
         />
