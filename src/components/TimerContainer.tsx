@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { FaPlayCircle } from "react-icons/fa";
+import { FaPlayCircle, FaUndoAlt } from "react-icons/fa";
 import Timer from "./Timer";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { getNextMode, selectMode } from "../reducers/timerReducer";
+import { getNextMode, resetCycle, selectMode } from "../reducers/timerReducer";
 import { playAudio } from "../utils/utilities";
 import { MODE_TEXT, SFX } from "../utils/constants";
 import type { TimeFormat } from "../reducers/timerReducer";
@@ -29,6 +29,8 @@ const TimerContainer = () => {
   };
 
   const handleModeClick = (mode: string) => dispatch(selectMode(mode));
+
+  const handleReset = () => dispatch(resetCycle());
 
   const changeMode = () => {
     dispatch(getNextMode());
@@ -63,7 +65,14 @@ const TimerContainer = () => {
           </InteractiveIcon>
         </>
       )}
-      {currentCycle} / {cycleThreshold}
+      <Session>
+        <span>
+          Session: {currentCycle} / {cycleThreshold}
+        </span>
+        <InteractiveIcon>
+          <FaUndoAlt onClick={handleReset} />
+        </InteractiveIcon>
+      </Session>
     </Wrapper>
   );
 };
@@ -83,7 +92,7 @@ const Header = styled.div`
 
 const Mode = styled.div<{ $isCurrentMode: boolean }>`
   border-radius: 6px;
-  background: ${({ $isCurrentMode }) => ($isCurrentMode ? "black" : "blue")};
+  background: ${({ $isCurrentMode }) => ($isCurrentMode ? "#ed5b3a" : "#7b6d879e")};
   color: white;
   width: 120px;
   height: 40px;
@@ -94,7 +103,14 @@ const Mode = styled.div<{ $isCurrentMode: boolean }>`
   cursor: pointer;
 `;
 
+const Session = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
 export const InteractiveIcon = styled.span`
+  line-height: 5px;
   cursor: pointer;
 `;
 
