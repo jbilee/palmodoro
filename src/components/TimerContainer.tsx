@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { FaPlayCircle } from "react-icons/fa";
 import Timer from "./Timer";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { TimeFormat } from "../reducers/timerReducer";
-import { MODE_TEXT } from "../utils/constants";
+import { getNextMode, selectMode } from "../reducers/timerReducer";
+import { playAudio } from "../utils/utilities";
+import { MODE_TEXT, SFX } from "../utils/constants";
+import type { TimeFormat } from "../reducers/timerReducer";
 
 const TimerContainer = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -12,6 +14,8 @@ const TimerContainer = () => {
   const currentTime = useAppSelector(
     (state) => state.timer[currentMode as keyof typeof state.timer] as TimeFormat
   );
+  const currentCycle = useAppSelector((state) => state.timer.currentCycle);
+  const cycleThreshold = useAppSelector((state) => state.timer.cycleThreshold);
   const dispatch = useAppDispatch();
 
   const startTimer = () => {
@@ -24,25 +28,22 @@ const TimerContainer = () => {
       .padStart(2, "0")}:00`;
   };
 
+  const handleModeClick = (mode: string) => dispatch(selectMode(mode));
+
   const changeMode = () => {
-    switch (currentMode) {
-      case "pomodoro": {
-        return dispatch({ type: "timer/changeMode", payload: "shortBreak" });
-      }
-      case "shortBreak": {
-        return dispatch({ type: "timer/changeMode", payload: "longBreak" });
-      }
-      case "longBreak": {
-        return dispatch({ type: "timer/changeMode", payload: "pomodoro" });
-      }
-    }
+    dispatch(getNextMode());
+    playAudio(SFX[0].url);
   };
 
   return (
     <Wrapper>
       <Header>
         {Object.keys(MODE_TEXT).map((mode) => (
-          <Mode $isCurrentMode={currentMode === mode}>
+          <Mode
+            $isCurrentMode={currentMode === mode}
+            key={mode}
+            onClick={() => handleModeClick(mode)}
+          >
             {MODE_TEXT[mode as keyof typeof MODE_TEXT]}
           </Mode>
         ))}
@@ -62,6 +63,7 @@ const TimerContainer = () => {
           </InteractiveIcon>
         </>
       )}
+      {currentCycle} / {cycleThreshold}
     </Wrapper>
   );
 };
@@ -88,7 +90,8 @@ const Mode = styled.div<{ $isCurrentMode: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 500ms;
+  transition: 100ms;
+  cursor: pointer;
 `;
 
 export const InteractiveIcon = styled.span`

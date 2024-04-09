@@ -15,3 +15,8 @@ export const calculateSeconds = (time: number) => {
 };
 
 export const getRandomValue = (cap: number) => Math.floor(Math.random() * (cap + 1));
+
+export const playAudio = (path: string) => {
+  const audio = new Audio(path);
+  audio.play();
+};
