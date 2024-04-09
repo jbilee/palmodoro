@@ -24,7 +24,7 @@ const Background = styled.div<{ $image: string }>`
   background-size: cover;
   background-position: center;
   box-shadow: 0 0 300px rgba(0, 0, 0, 0.7) inset;
-  background-color: #322271eb;
+  background-color: #171130eb;
   background-blend-mode: hard-light;
   transition: background-image 800ms;
 `;

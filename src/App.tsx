@@ -1,9 +1,9 @@
 import { Provider } from "react-redux";
 import styled from "styled-components";
 import { store } from "./store";
+import Layout from "./components/Layout";
 import TimerContainer from "./components/TimerContainer";
 import Todos from "./components/Todos";
-import Layout from "./components/Layout";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
   @media (min-width: 1200px) {
     flex-direction: row;
   }

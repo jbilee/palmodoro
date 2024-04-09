@@ -16,13 +16,9 @@ function Timer({ hour, minute, setIsRunning, changeMode }: TimerProps) {
   let id: number | null = null;
   let timeLeft = hour * 3600 + minute * 60;
 
-  const timerDone = () => {
-    console.log("timerDone invoked");
-    changeMode();
-  };
-
   const stopTimer = () => {
     clearInterval(id as number);
+    document.title = "Palmodoro";
     setIsRunning(false);
   };
 
@@ -34,6 +30,7 @@ function Timer({ hour, minute, setIsRunning, changeMode }: TimerProps) {
   const updateTime = () => {
     if (!elem.current) return;
     (elem.current as HTMLElement).innerText = getTime(timeLeft);
+    document.title = getTime(timeLeft) + " | Palmodoro";
   };
 
   const startTimer = () => {
@@ -42,7 +39,7 @@ function Timer({ hour, minute, setIsRunning, changeMode }: TimerProps) {
         timeLeft -= 1;
         updateTime();
         clearInterval(id as number);
-        return timerDone();
+        return changeMode();
       }
       timeLeft -= 1;
       updateTime();

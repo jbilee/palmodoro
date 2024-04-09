@@ -1,6 +1,8 @@
-import { FormEventHandler, useState } from "react";
-import { useAppDispatch } from "../hooks";
+import { useState } from "react";
 import styled from "styled-components";
+import { useAppDispatch } from "../hooks";
+import { addTodo } from "../reducers/todosReducer";
+import type { FormEventHandler } from "react";
 
 const NewTodo = () => {
   const [todo, setTodo] = useState("");
@@ -13,10 +15,8 @@ const NewTodo = () => {
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    dispatch({
-      type: "todos/addTodo",
-      payload: { text: todo },
-    });
+    if (todo === "") return;
+    dispatch(addTodo(todo));
     setTodo("");
   };
 
