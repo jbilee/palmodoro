@@ -5,9 +5,11 @@ export const MODE_TEXT = {
 };
 
 export const WALLPAPERS = [
-  "/src/assets/wallpapers/galaxy-3608029_1920Luminas_Art.jpg",
-  "/src/assets/wallpapers/sunset-404072_1920stevepb.jpg",
-  "/src/assets/wallpapers/sunset-8586245_1920jplenio.jpg",
+  "/src/assets/wallpapers/the-shade-1406757_1280.jpg",
+  "/src/assets/wallpapers/background-3372630.jpg",
+  "/src/assets/wallpapers/fir-trees-1835402_1920.jpg",
+  "/src/assets/wallpapers/sheet-music-277277_1920.jpg",
+  "/src/assets/wallpapers/christmas-stars-6881297_1280.jpg",
 ];
 
 export const SFX = [
