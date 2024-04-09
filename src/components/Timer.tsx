@@ -1,27 +1,24 @@
-import { Dispatch, SetStateAction, useRef } from "react";
-import styled from "styled-components";
-import {
-  calculateHours,
-  calculateMinutes,
-  calculateSeconds,
-} from "../utils/utilities";
+import { useRef } from "react";
+import { FaStopCircle } from "react-icons/fa";
+import { InteractiveIcon } from "./TimerContainer";
+import { calculateHours, calculateMinutes, calculateSeconds } from "../utils/utilities";
+import type { Dispatch, SetStateAction } from "react";
 
 interface TimerProps {
   hour: number;
   minute: number;
   setIsRunning: Dispatch<SetStateAction<boolean>>;
+  changeMode: () => void;
 }
 
-function Timer({ hour, minute, setIsRunning }: TimerProps) {
+function Timer({ hour, minute, setIsRunning, changeMode }: TimerProps) {
   const elem = useRef(null);
   let id: number | null = null;
   let timeLeft = hour * 3600 + minute * 60;
 
   const timerDone = () => {
     console.log("timerDone invoked");
-
-    // setIsRunning(false);
-    // alert("time's up!");
+    changeMode();
   };
 
   const stopTimer = () => {
@@ -30,9 +27,7 @@ function Timer({ hour, minute, setIsRunning }: TimerProps) {
   };
 
   const getTime = (time: number) =>
-    `${calculateHours(time).toString().padStart(2, "0")}:${calculateMinutes(
-      time
-    )
+    `${calculateHours(time).toString().padStart(2, "0")}:${calculateMinutes(time)
       .toString()
       .padStart(2, "0")}:${calculateSeconds(time).toString().padStart(2, "0")}`;
 
@@ -57,19 +52,15 @@ function Timer({ hour, minute, setIsRunning }: TimerProps) {
   startTimer();
 
   return (
-    <Wrapper>
-      <div ref={elem} className="timer">
+    <>
+      <span ref={elem} className="timer">
         {getTime(timeLeft)}
-      </div>
-      <div>
-        <button onClick={() => stopTimer()}>Stop</button>
-      </div>
-    </Wrapper>
+      </span>
+      <InteractiveIcon>
+        <FaStopCircle size="3.5rem" onClick={stopTimer} />
+      </InteractiveIcon>
+    </>
   );
 }
-
-const Wrapper = styled.div`
-  font-size: 4rem;
-`;
 
 export default Timer;
