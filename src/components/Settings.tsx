@@ -1,8 +1,11 @@
 import { useRef } from "react";
+import { Button, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 import styled from "styled-components";
 import { RiSettings5Fill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { saveSound, saveTime } from "../reducers/settingsReducer";
+import { changeThreshold } from "../reducers/timerReducer";
+import { randomizeWallpaper, uploadWallpaper } from "../reducers/wallpaperReducer";
 import { playAudio } from "../utils/utilities";
 import { SFX } from "../utils/constants";
 import type { ChangeEvent } from "react";
@@ -32,9 +35,18 @@ const Settings = () => {
     e.target.value = time.toString();
   };
 
-  const handleSoundSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleThresholdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newThreshold = Number(e.target.value);
+    dispatch(changeThreshold(newThreshold));
+  };
+
+  const handleSoundSelect = (e: SelectChangeEvent<string>) => {
     const legend = e.target.value;
     dispatch(saveSound(legend));
+  };
+
+  const handleRandomize = () => {
+    dispatch(randomizeWallpaper());
   };
 
   const playSound = () => {
@@ -42,6 +54,14 @@ const Settings = () => {
     const legend = selection.current.value;
     const audio = SFX.find((obj) => obj.legend === legend) as { legend: string; url: string };
     playAudio(audio.url);
+  };
+
+  const handleFile = (files: FileList) => {
+    const imageFile = files?.[0];
+    if (imageFile && imageFile.type.includes("image")) {
+      const url = URL.createObjectURL(imageFile);
+      dispatch(uploadWallpaper(url));
+    }
   };
 
   return (
@@ -90,15 +110,70 @@ const Settings = () => {
             Minutes
           </div>
           <div className="heading-small">Cycles</div>
-          {cycleThreshold}
+          <input
+            id="threshold"
+            type="number"
+            min="2"
+            max="30"
+            defaultValue={cycleThreshold}
+            onChange={handleThresholdChange}
+          />
           <div className="heading-small">Sound</div>
-          <select ref={selection} defaultValue={timerSound} onChange={handleSoundSelect}>
+          <Select
+            ref={selection}
+            defaultValue={timerSound}
+            onChange={handleSoundSelect}
+            size="small"
+            sx={{
+              background: "white",
+            }}
+          >
             {SFX.map((sound, i) => (
-              <option key={i}>{sound.legend}</option>
+              <MenuItem key={i} value={sound.legend}>
+                {sound.legend}
+              </MenuItem>
             ))}
-          </select>
-          <button onClick={playSound}>Listen</button>
+          </Select>
+          <Button
+            variant="outlined"
+            onClick={playSound}
+            sx={{
+              background: "white",
+            }}
+          >
+            Listen
+          </Button>
           <div className="heading-small">Wallpaper</div>
+          <Button
+            variant="outlined"
+            onClick={handleRandomize}
+            sx={{
+              background: "white",
+            }}
+          >
+            Randomize
+          </Button>
+          <label htmlFor="file">
+            <DragNDrop
+              onDrop={(e) => {
+                e.preventDefault();
+                if (e.dataTransfer.files) handleFile(e.dataTransfer.files);
+              }}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              Click or drop your image here
+            </DragNDrop>
+          </label>
+          <input
+            id="file"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const files = e.target.files;
+              if (!files) return;
+              handleFile(files);
+            }}
+          />
         </Content>
       </Box>
     </Wrapper>
@@ -138,6 +213,23 @@ const Content = styled.div`
   padding: 24px 32px;
   & h2 {
     text-align: center;
+  }
+  & > input {
+    display: none;
+  }
+`;
+
+const DragNDrop = styled.div`
+  border: 1px dashed blue;
+  border-radius: 6px;
+  background: #8a77b576;
+  color: white;
+  display: grid;
+  place-content: center center;
+  min-height: 60px;
+  cursor: pointer;
+  &:hover {
+    background: #8a77b5a8;
   }
 `;
 

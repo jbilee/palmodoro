@@ -1,19 +1,14 @@
 import styled from "styled-components";
-import ImageUploader from "./ImageUploader";
+import Settings from "./Settings";
 import { useAppSelector } from "../hooks";
 import type { ReactNode } from "react";
-import Settings from "./Settings";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const wallpaper = useAppSelector((state) => state.wallpaper);
   return (
     <Background $image={wallpaper}>
       <Settings />
-      <Foreground>
-        <MenuBar></MenuBar>
-        <ImageUploader />
-        {children}
-      </Foreground>
+      <Foreground>{children}</Foreground>
     </Background>
   );
 };
@@ -35,12 +30,6 @@ const Foreground = styled.div`
   padding: 36px;
   backdrop-filter: blur(3px);
   height: inherit;
-`;
-
-const MenuBar = styled.div`
-  position: fixed;
-  top: 20px;
-  right: 20px;
 `;
 
 export default Layout;

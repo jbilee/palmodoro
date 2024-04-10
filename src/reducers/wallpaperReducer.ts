@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { getRandomValue } from "../utils/utilities";
 import { WALLPAPERS } from "../utils/constants";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 type Wallpaper = string;
 
