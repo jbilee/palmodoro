@@ -1,23 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
-export type TimeFormat = {
-  hours: number;
-  minutes: number;
-};
-
-type TimerState = {
-  pomodoro: TimeFormat;
-  shortBreak: TimeFormat;
-  longBreak: TimeFormat;
-  currentMode: string;
-  cycleThreshold: number;
-  currentCycle: number;
-};
-
-const initialState: TimerState = {
-  pomodoro: { hours: 0, minutes: 1 },
-  shortBreak: { hours: 0, minutes: 2 },
-  longBreak: { hours: 0, minutes: 3 },
+const initialState = {
   currentMode: "pomodoro",
   cycleThreshold: 3,
   currentCycle: 1,

@@ -5,16 +5,15 @@ import { calculateHours, calculateMinutes, calculateSeconds } from "../utils/uti
 import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 interface TimerProps {
-  hour: number;
-  minute: number;
+  seconds: number;
   intervalId: MutableRefObject<number | null>;
   setIsRunning: Dispatch<SetStateAction<boolean>>;
   changeMode: () => void;
 }
 
-function Timer({ hour, minute, intervalId, setIsRunning, changeMode }: TimerProps) {
+function Timer({ seconds, intervalId, setIsRunning, changeMode }: TimerProps) {
   const elem = useRef(null);
-  let timeLeft = hour * 3600 + minute * 60;
+  let timeLeft = seconds;
 
   const stopTimer = () => {
     clearInterval(intervalId.current as number);

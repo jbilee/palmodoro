@@ -4,19 +4,20 @@ import { FaPlayCircle, FaUndoAlt } from "react-icons/fa";
 import Timer from "./Timer";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getNextMode, resetCycle, selectMode } from "../reducers/timerReducer";
-import { playAudio } from "../utils/utilities";
-import { MODE_TEXT, SFX } from "../utils/constants";
-import type { TimeFormat } from "../reducers/timerReducer";
+import { calculateHours, calculateMinutes, playAudio } from "../utils/utilities";
+import { MODE_TEXT } from "../utils/constants";
+import type { SettingsProps } from "../reducers/settingsReducer";
 
 const TimerContainer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const intervalId = useRef<null | number>(null);
   const currentMode = useAppSelector((state) => state.timer.currentMode);
   const currentTime = useAppSelector(
-    (state) => state.timer[currentMode as keyof typeof state.timer] as TimeFormat
+    (state) => (state.settings[currentMode as keyof SettingsProps] as number) * 60
   );
   const currentCycle = useAppSelector((state) => state.timer.currentCycle);
   const cycleThreshold = useAppSelector((state) => state.timer.cycleThreshold);
+  const timerSound = useAppSelector((state) => state.settings.sound.url);
   const dispatch = useAppDispatch();
 
   const startTimer = () => {
@@ -24,9 +25,9 @@ const TimerContainer = () => {
   };
 
   const displayTimeString = () => {
-    return `${currentTime.hours.toString().padStart(2, "0")}:${currentTime.minutes
-      .toString()
-      .padStart(2, "0")}:00`;
+    const hours = calculateHours(currentTime);
+    const minutes = calculateMinutes(currentTime);
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
   };
 
   const handleModeClick = (mode: string) => {
@@ -42,7 +43,7 @@ const TimerContainer = () => {
 
   const changeMode = () => {
     dispatch(getNextMode());
-    playAudio(SFX[0].url);
+    playAudio(timerSound);
   };
 
   return (
@@ -60,8 +61,7 @@ const TimerContainer = () => {
       </Header>
       {isRunning ? (
         <Timer
-          hour={currentTime.hours}
-          minute={currentTime.minutes}
+          seconds={currentTime}
           intervalId={intervalId}
           setIsRunning={setIsRunning}
           changeMode={changeMode}
@@ -108,7 +108,7 @@ const Mode = styled.div<{ $isCurrentMode: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 100ms;
+  transition: 130ms;
   cursor: pointer;
 `;
 
