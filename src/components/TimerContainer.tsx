@@ -1,34 +1,46 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { FaPlayCircle, FaUndoAlt } from "react-icons/fa";
-import Timer from "./Timer";
+import { FaUndoAlt } from "react-icons/fa";
+import RunningTimer from "./RunningTimer";
+import StaticTimer from "./StaticTimer";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getNextMode, resetCycle, selectMode } from "../reducers/timerReducer";
-import { calculateHours, calculateMinutes, playAudio } from "../utils/utilities";
+import { playAudio } from "../utils/utilities";
 import { MODE_TEXT } from "../utils/constants";
-import type { SettingsProps } from "../reducers/settingsReducer";
 
 const TimerContainer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const intervalId = useRef<null | number>(null);
   const currentMode = useAppSelector((state) => state.timer.currentMode);
-  const currentTime = useAppSelector(
-    (state) => (state.settings[currentMode as keyof SettingsProps] as number) * 60
-  );
   const currentCycle = useAppSelector((state) => state.timer.currentCycle);
   const cycleThreshold = useAppSelector((state) => state.timer.cycleThreshold);
   const timerSound = useAppSelector((state) => state.settings.sound.url);
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (isRunning) playAudio(timerSound);
+  }, [currentMode]);
+
+  const setIntervalId = useCallback(
+    (id: number) => {
+      intervalId.current = id;
+    },
+    [intervalId]
+  );
+
   const startTimer = () => {
     setIsRunning(true);
   };
 
-  const displayTimeString = () => {
-    const hours = calculateHours(currentTime);
-    const minutes = calculateMinutes(currentTime);
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
-  };
+  const changeMode = useCallback(() => {
+    dispatch(getNextMode());
+  }, [dispatch]);
+
+  const stopTimer = useCallback(() => {
+    clearInterval(intervalId.current as number);
+    document.title = "Palmodoro";
+    setIsRunning(false);
+  }, [intervalId, setIsRunning]);
 
   const handleModeClick = (mode: string) => {
     if (isRunning) {
@@ -40,11 +52,6 @@ const TimerContainer = () => {
   };
 
   const handleReset = () => dispatch(resetCycle());
-
-  const changeMode = () => {
-    dispatch(getNextMode());
-    playAudio(timerSound);
-  };
 
   return (
     <Wrapper>
@@ -60,19 +67,14 @@ const TimerContainer = () => {
         ))}
       </Header>
       {isRunning ? (
-        <Timer
-          seconds={currentTime}
-          intervalId={intervalId}
-          setIsRunning={setIsRunning}
+        <RunningTimer
+          currentMode={currentMode}
+          setIntervalId={setIntervalId}
           changeMode={changeMode}
+          stopTimer={stopTimer}
         />
       ) : (
-        <>
-          <span className="timer">{displayTimeString()}</span>
-          <InteractiveIcon>
-            <FaPlayCircle size="3.5rem" onClick={startTimer} />
-          </InteractiveIcon>
-        </>
+        <StaticTimer currentMode={currentMode} startTimer={startTimer} />
       )}
       <Session>
         <span>

@@ -1,30 +1,36 @@
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { FaStopCircle } from "react-icons/fa";
+import { useAppSelector } from "../hooks";
 import { InteractiveIcon } from "./TimerContainer";
 import { calculateHours, calculateMinutes, calculateSeconds } from "../utils/utilities";
-import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 interface TimerProps {
-  seconds: number;
-  intervalId: MutableRefObject<number | null>;
-  setIsRunning: Dispatch<SetStateAction<boolean>>;
+  currentMode: string;
+  setIntervalId: (id: number) => void;
   changeMode: () => void;
+  stopTimer: () => void;
 }
 
-function Timer({ seconds, intervalId, setIsRunning, changeMode }: TimerProps) {
+const RunningTimer = memo(function RunningTimer({
+  currentMode,
+  setIntervalId,
+  changeMode,
+  stopTimer,
+}: TimerProps) {
   const elem = useRef(null);
-  let timeLeft = seconds;
+  const currentInterval = useRef<null | number>(null);
+  const timeSelector = useAppSelector(
+    (state) => state.settings[currentMode as keyof typeof state.settings] as number
+  );
+  let timeLeft = timeSelector * 60;
 
-  const stopTimer = () => {
-    clearInterval(intervalId.current as number);
-    document.title = "Palmodoro";
-    setIsRunning(false);
-  };
+  if (currentInterval.current) clearInterval(currentInterval.current);
 
-  const getTime = (time: number) =>
-    `${calculateHours(time).toString().padStart(2, "0")}:${calculateMinutes(time)
+  const getTime = (time: number) => {
+    return `${calculateHours(time).toString().padStart(2, "0")}:${calculateMinutes(time)
       .toString()
       .padStart(2, "0")}:${calculateSeconds(time).toString().padStart(2, "0")}`;
+  };
 
   const updateTime = () => {
     if (!elem.current) return;
@@ -33,19 +39,20 @@ function Timer({ seconds, intervalId, setIsRunning, changeMode }: TimerProps) {
   };
 
   const startTimer = () => {
-    intervalId.current = setInterval(() => {
-      if (timeLeft === 1) {
+    currentInterval.current = setInterval(() => {
+      if (timeLeft === 0) {
         timeLeft -= 1;
-        updateTime();
-        clearInterval(intervalId.current as number);
+        clearInterval(currentInterval.current as number);
         return changeMode();
       }
       timeLeft -= 1;
       updateTime();
     }, 1000);
+    setIntervalId(currentInterval.current);
   };
 
   startTimer();
+  updateTime();
 
   return (
     <>
@@ -57,6 +64,6 @@ function Timer({ seconds, intervalId, setIsRunning, changeMode }: TimerProps) {
       </InteractiveIcon>
     </>
   );
-}
+});
 
-export default Timer;
+export default RunningTimer;
