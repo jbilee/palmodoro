@@ -1,6 +1,7 @@
 import { useRef, type ChangeEvent } from "react";
 import { Button, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 import styled from "styled-components";
+import { MdLightbulb } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { saveSound, saveTime } from "../reducers/settingsReducer";
@@ -70,107 +71,119 @@ const Settings = () => {
         <Content>
           <div className="heading-large">Settings</div>
           <div className="heading-small">Timer</div>
-          <div>
-            Pomodoro:
-            <input
-              id="pomodoro"
-              type="number"
-              min="1"
-              max="180"
-              defaultValue={pomodoroTime}
-              onChange={handleTimeChange}
-            />{" "}
-            Minutes
-          </div>
-          <div>
-            Short Break:
-            <input
-              id="shortBreak"
-              type="number"
-              min="1"
-              max="30"
-              defaultValue={shortBreakTime}
-              onChange={handleTimeChange}
-            />{" "}
-            Minutes
-          </div>
-          <div>
-            Long Break:
-            <input
-              id="longBreak"
-              type="number"
-              min="1"
-              max="30"
-              defaultValue={longBreakTime}
-              onChange={handleTimeChange}
-            />{" "}
-            Minutes
-          </div>
-          <div className="heading-small">Cycles</div>
-          <input
-            id="threshold"
-            type="number"
-            min="2"
-            max="30"
-            defaultValue={cycleThreshold}
-            onChange={handleThresholdChange}
-          />
+          <Options>
+            <Row>
+              Pomodoro:
+              <NumberInput>
+                <input
+                  id="pomodoro"
+                  type="number"
+                  min="1"
+                  max="180"
+                  defaultValue={pomodoroTime}
+                  onChange={handleTimeChange}
+                />
+              </NumberInput>{" "}
+              Minutes
+            </Row>
+            <Row>
+              Short Break:
+              <NumberInput>
+                <input
+                  id="shortBreak"
+                  type="number"
+                  min="1"
+                  max="30"
+                  defaultValue={shortBreakTime}
+                  onChange={handleTimeChange}
+                />
+              </NumberInput>{" "}
+              Minutes
+            </Row>
+            <Row>
+              Long Break:
+              <NumberInput>
+                <input
+                  id="longBreak"
+                  type="number"
+                  min="1"
+                  max="30"
+                  defaultValue={longBreakTime}
+                  onChange={handleTimeChange}
+                />
+              </NumberInput>{" "}
+              Minutes
+            </Row>
+          </Options>
+          <div className="heading-small">Cycle</div>
+          <Options>
+            <Row>
+              <NumberInput>
+                <input
+                  id="threshold"
+                  type="number"
+                  min="2"
+                  max="30"
+                  defaultValue={cycleThreshold}
+                  onChange={handleThresholdChange}
+                />
+              </NumberInput>
+              Pomodoros per cycle
+            </Row>
+          </Options>
           <div className="heading-small">Sound</div>
-          <Select
-            inputRef={selection}
-            value={timerSound}
-            onChange={handleSoundSelect}
-            size="small"
-            sx={{
-              background: "white",
-            }}
-          >
-            {SFX.map((sound, i) => (
-              <MenuItem key={i} value={sound.legend}>
-                {sound.legend}
-              </MenuItem>
-            ))}
-          </Select>
-          <Button
-            variant="outlined"
-            onClick={playSound}
-            sx={{
-              background: "white",
-            }}
-          >
-            Listen
-          </Button>
+          <Options>
+            <Row>
+              <Select
+                inputRef={selection}
+                value={timerSound}
+                onChange={handleSoundSelect}
+                size="small"
+                sx={{
+                  background: "white",
+                }}
+              >
+                {SFX.map((sound, i) => (
+                  <MenuItem key={i} value={sound.legend}>
+                    {sound.legend}
+                  </MenuItem>
+                ))}
+              </Select>
+              <Button variant="contained" onClick={playSound}>
+                Listen
+              </Button>
+            </Row>
+          </Options>
           <div className="heading-small">Wallpaper</div>
-          <Button
-            variant="outlined"
-            onClick={handleRandomize}
-            sx={{
-              background: "white",
-            }}
-          >
-            Randomize
-          </Button>
-          <label htmlFor="file">
-            <DragNDrop
-              onDrop={(e) => {
-                e.preventDefault();
-                if (e.dataTransfer.files) handleFile(e.dataTransfer.files);
+          <Options>
+            <Row>
+              <Button variant="contained" onClick={handleRandomize}>
+                Randomize
+              </Button>
+            </Row>
+            <label htmlFor="file">
+              <DragNDrop
+                onDrop={(e) => {
+                  e.preventDefault();
+                  if (e.dataTransfer.files) handleFile(e.dataTransfer.files);
+                }}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                Click or drop your image
+              </DragNDrop>
+            </label>
+            <input
+              id="file"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const files = e.target.files;
+                if (!files) return;
+                handleFile(files);
               }}
-              onDragOver={(e) => e.preventDefault()}
-            >
-              Click or drop your image here
-            </DragNDrop>
-          </label>
-          <input
-            id="file"
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const files = e.target.files;
-              if (!files) return;
-              handleFile(files);
-            }}
-          />
+            />
+            <MdLightbulb color="white" /> Press the F11 key to use the app in fullscreen mode!
+          </Options>
         </Content>
       </Box>
     </Wrapper>
@@ -184,7 +197,7 @@ const Wrapper = styled.div`
   display: flex;
   height: 100%;
   .hidden {
-    margin-right: -350px;
+    margin-right: -330px;
   }
 `;
 
@@ -201,18 +214,48 @@ const Tab = styled.div`
 `;
 
 const Box = styled.div`
-  width: 350px;
+  width: 330px;
   background: #130d1dd2;
   transition: 300ms;
+  overflow-y: auto;
 `;
 
 const Content = styled.div`
-  padding: 24px 32px;
+  padding: 24px 28px;
   & h2 {
     text-align: center;
   }
-  & > input[type="file"] {
+  & input[type="file"] {
     display: none;
+  }
+`;
+
+const Options = styled.div`
+  padding: 0 12px;
+  margin-bottom: 24px;
+  &:last-child {
+    margin: 0;
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+`;
+
+const NumberInput = styled.div`
+  background: white;
+  padding: 10px 8px;
+  border-radius: 4px;
+  max-width: 70px;
+  & > input {
+    border: none;
+    padding: 0;
+    width: 100%;
+    font-size: 0.9rem;
+    text-align: center;
   }
 `;
 
@@ -223,11 +266,12 @@ const DragNDrop = styled.div`
   color: white;
   display: grid;
   place-content: center center;
-  min-height: 60px;
+  min-height: 50px;
   cursor: pointer;
   &:hover {
     background: #8a77b5a8;
   }
+  margin-bottom: 14px;
 `;
 
 export default Settings;
