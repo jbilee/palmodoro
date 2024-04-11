@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type ChangeEvent } from "react";
 import { Button, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 import styled from "styled-components";
 import { RiSettings5Fill } from "react-icons/ri";
@@ -8,7 +8,6 @@ import { changeThreshold } from "../reducers/timerReducer";
 import { randomizeWallpaper, uploadWallpaper } from "../reducers/wallpaperReducer";
 import { playAudio } from "../utils/utilities";
 import { SFX } from "../utils/constants";
-import type { ChangeEvent } from "react";
 
 const Settings = () => {
   const dispatch = useAppDispatch();
@@ -45,9 +44,7 @@ const Settings = () => {
     dispatch(saveSound(legend));
   };
 
-  const handleRandomize = () => {
-    dispatch(randomizeWallpaper());
-  };
+  const handleRandomize = () => dispatch(randomizeWallpaper());
 
   const playSound = () => {
     if (!selection.current) return;
@@ -69,7 +66,7 @@ const Settings = () => {
       <Tab>
         <RiSettings5Fill size="2rem" onClick={handleClick} />
       </Tab>
-      <Box ref={box}>
+      <Box ref={box} className="hidden">
         <Content>
           <div className="heading-large">Settings</div>
           <div className="heading-small">Timer</div>
@@ -120,8 +117,8 @@ const Settings = () => {
           />
           <div className="heading-small">Sound</div>
           <Select
-            ref={selection}
-            defaultValue={timerSound}
+            inputRef={selection}
+            value={timerSound}
             onChange={handleSoundSelect}
             size="small"
             sx={{
@@ -214,7 +211,7 @@ const Content = styled.div`
   & h2 {
     text-align: center;
   }
-  & > input {
+  & > input[type="file"] {
     display: none;
   }
 `;

@@ -1,6 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { SFX } from "../utils/constants";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
 export type SettingsProps = {
   pomodoro: number;
@@ -20,9 +19,9 @@ const saveToStorage = (state: SettingsProps) => {
 };
 
 const initialState = getStorage() || {
-  pomodoro: 1,
-  shortBreak: 1,
-  longBreak: 1,
+  pomodoro: 25,
+  shortBreak: 5,
+  longBreak: 20,
   sound: {
     legend: "Ping",
     url: "/src/assets/sounds/ping-82822.mp3",

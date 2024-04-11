@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, type FormEventHandler } from "react";
 import styled from "styled-components";
 import { useAppDispatch } from "../hooks";
 import { addTodo } from "../reducers/todosReducer";
-import type { FormEventHandler } from "react";
 
 const NewTodo = () => {
   const [todo, setTodo] = useState("");
@@ -23,11 +22,7 @@ const NewTodo = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Content>
-        <InputArea
-          placeholder="What's my plan?"
-          value={todo}
-          onChange={(e) => handleChange(e.target.value)}
-        />
+        <InputArea placeholder="What's my plan?" value={todo} onChange={(e) => handleChange(e.target.value)} />
         <button>Add</button>
       </Content>
     </form>

@@ -1,9 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { getRandomValue } from "../utils/utilities";
 import { WALLPAPERS } from "../utils/constants";
-import type { PayloadAction } from "@reduxjs/toolkit";
-
-type Wallpaper = string;
 
 // const IMAGE_PATH = "../assets/";
 
@@ -12,13 +9,13 @@ const getRandomWallpaper = () => {
   return WALLPAPERS[randomIndex];
 };
 
-const initialState: Wallpaper = getRandomWallpaper();
+const initialState = getRandomWallpaper();
 
 const wallpaperSlice = createSlice({
   name: "wallpaper",
   initialState,
   reducers: {
-    uploadWallpaper: (_, action: PayloadAction<Wallpaper>) => {
+    uploadWallpaper: (_, action: PayloadAction<string>) => {
       return action.payload;
     },
     randomizeWallpaper: (state) => {
