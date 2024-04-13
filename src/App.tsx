@@ -1,38 +1,48 @@
 import { Provider } from "react-redux";
+import { ThemeProvider, createTheme } from "@mui/material";
 import styled from "styled-components";
 import { store } from "./store";
 import Layout from "./components/Layout";
 import TimerContainer from "./components/TimerContainer";
 import Todos from "./components/Todos";
-import { ThemeProvider, createTheme } from "@mui/material";
-import { purple } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#38225f",
+      main: "#ed5b3a",
     },
-    action: {
-      // hover: purple[600],
-      hoverOpacity: 0.2,
-    }
   },
   components: {
     MuiSelect: {
       styleOverrides: {
         root: {
-          fontSize: "0.9rem"
-        }
-      }
+          fontSize: "0.9rem",
+        },
+      },
     },
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          fontSize: "0.9rem"
-        }
-      }
-    }
-  }
+          fontSize: "0.9rem",
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: "white",
+          "&.Mui-checked": {
+            color: "white",
+          },
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: ({ ownerState }) => ({ textDecoration: ownerState.checked ? "line-through" : "none" }),
+      },
+    },
+  },
 });
 
 function App() {
