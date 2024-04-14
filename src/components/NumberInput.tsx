@@ -19,7 +19,7 @@ const NumberInput = ({ id, type, min, max, defaultValue, onChange }: InputHTMLAt
   }, []);
 
   return (
-    <Wrapper $isFocused={isFocused} onMouseOver={() => console.log("mouse is over")}>
+    <Wrapper $isFocused={isFocused}>
       <Border $isFocused={isFocused}>
         <input
           ref={inputRef}

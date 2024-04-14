@@ -57,11 +57,7 @@ const TimerContainer = () => {
     <Wrapper>
       <Header>
         {Object.keys(MODE_TEXT).map((mode) => (
-          <Mode
-            $isCurrentMode={currentMode === mode}
-            key={mode}
-            onClick={() => handleModeClick(mode)}
-          >
+          <Mode $isCurrentMode={currentMode === mode} key={mode} onClick={() => handleModeClick(mode)}>
             {MODE_TEXT[mode as keyof typeof MODE_TEXT]}
           </Mode>
         ))}
@@ -92,13 +88,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+  @media (min-width: 1200px) {
+    padding-bottom: 10px;
+  }
 `;
 
 const Header = styled.div`
   display: flex;
   gap: 12px;
-  margin-bottom: 40px;
 `;
 
 const Mode = styled.div<{ $isCurrentMode: boolean }>`

@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   align-self: flex-end;
   display: flex;
   flex-direction: column-reverse;
+  gap: 12px;
   @media (min-width: 1200px) {
     flex-direction: column;
   }

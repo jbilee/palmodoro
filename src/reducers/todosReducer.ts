@@ -14,7 +14,7 @@ const todosSlice = createSlice({
   reducers: {
     addTodo: (state, action: PayloadAction<string>) => {
       const newTodo = {
-        id: state.length,
+        id: Date.now(),
         text: action.payload,
         checked: false,
       };

@@ -69,9 +69,9 @@ const Settings = () => {
   return (
     <Wrapper>
       <Tab>
-        <RiSettings5Fill size="2rem" onClick={handleClick} />
+        <RiSettings5Fill onClick={handleClick} />
       </Tab>
-      <Box ref={box}>
+      <Box ref={box} className="hidden">
         <Content>
           <div className="heading-large">Settings</div>
           <div className="heading-small">Timer</div>
@@ -198,15 +198,20 @@ const Wrapper = styled.div`
 `;
 
 const Tab = styled.div`
-  margin-top: 15px;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   display: grid;
   place-content: center center;
   padding: 0 12px;
-  max-height: 60px;
+  max-height: 46px;
   background: #130d1dd2;
+  font-size: 1.7rem;
   cursor: pointer;
+  @media (min-width: 600px) {
+    margin-top: 15px;
+    font-size: 2rem;
+    max-height: 60px;
+  }
 `;
 
 const Box = styled.div`

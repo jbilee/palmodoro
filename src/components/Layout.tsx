@@ -26,10 +26,13 @@ const Background = styled.div<{ $image: string }>`
 
 const Foreground = styled.div`
   display: grid;
-  place-content: center center;
-  padding: 36px;
+  padding: 48px 24px 0;
   backdrop-filter: blur(3px);
   height: inherit;
+  @media (min-width: 600px) {
+    padding: 0;
+    place-content: center center;
+  }
 `;
 
 export default Layout;
