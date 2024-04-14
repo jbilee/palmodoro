@@ -30,7 +30,7 @@ const TodoList = () => {
       <ul>
         {todos.map(({ id, text, checked }) => (
           <ListItem key={id}>
-            <FormControlLabel
+            <StyledFormControlLabel
               control={<Checkbox checked={checked} onChange={(e) => handleChange(id as number, e.target.checked)} />}
               label={text}
               checked={checked}
@@ -44,17 +44,6 @@ const TodoList = () => {
     </Wrapper>
   );
 };
-{
-  /* <ListItem key={id}>
-            <div>
-              <Checkbox checked={checked} onChange={(e) => handleChange(id as number, e.target.checked)} />
-              <span className={checked ? "crossed-out" : ""}>{text}</span>
-            </div>
-            <InteractiveIcon>
-              <HiTrash onClick={() => handleDelete(id)} />
-            </InteractiveIcon>
-          </ListItem> */
-}
 
 const Wrapper = styled.div`
   max-height: 280px;
@@ -66,13 +55,13 @@ const ListItem = styled.li`
   display: flex;
   gap: 6px;
   align-items: center;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const StyledFormControlLabel = styled(FormControlLabel)`
   flex-grow: 1;
-  /* &:hover {
-  background: yellow;
-} */
 `;
 
 // const WhiteCheckbox = styled(Checkbox)<CheckboxProps>({
