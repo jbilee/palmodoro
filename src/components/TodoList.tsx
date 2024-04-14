@@ -10,11 +10,15 @@ import { InteractiveIcon } from "./TimerContainer";
 const TodoList = () => {
   const wrapper = useRef<null | HTMLDivElement>(null);
   const todos = useAppSelector((state) => state.todos);
+  const todoCount = useRef(todos.length || 0);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!wrapper.current) return;
-    wrapper.current.scroll(0, wrapper.current.scrollHeight);
+    if (todos.length > todoCount.current) {
+      wrapper.current.scroll(0, wrapper.current.scrollHeight);
+      todoCount.current = todos.length;
+    }
   }, [todos]);
 
   const handleChange = (id: number, checked: boolean) => {
@@ -23,6 +27,7 @@ const TodoList = () => {
 
   const handleDelete = (id: number) => {
     dispatch(deleteTodo(id));
+    todoCount.current -= 1;
   };
 
   return (
@@ -48,7 +53,6 @@ const TodoList = () => {
 const Wrapper = styled.div`
   max-height: 280px;
   overflow-y: auto;
-  margin-bottom: 8px;
 `;
 
 const ListItem = styled.li`
