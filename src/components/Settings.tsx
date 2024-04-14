@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { saveSound, saveTime } from "../reducers/settingsReducer";
 import { changeThreshold } from "../reducers/timerReducer";
 import { randomizeWallpaper, uploadWallpaper } from "../reducers/wallpaperReducer";
+import NumberInput from "./NumberInput";
 import { playAudio } from "../utils/utilities";
 import { SFX } from "../utils/constants";
 
@@ -36,8 +37,11 @@ const Settings = () => {
   };
 
   const handleThresholdChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newThreshold = Number(e.target.value);
-    dispatch(changeThreshold(newThreshold));
+    let cycle = Number(e.target.value);
+    if (cycle < Number(e.target.min)) cycle = Number(e.target.min);
+    if (cycle > Number(e.target.max)) cycle = Number(e.target.max);
+    dispatch(changeThreshold(cycle));
+    e.target.value = cycle.toString();
   };
 
   const handleSoundSelect = (e: SelectChangeEvent<string>) => {
@@ -67,67 +71,59 @@ const Settings = () => {
       <Tab>
         <RiSettings5Fill size="2rem" onClick={handleClick} />
       </Tab>
-      <Box ref={box} className="hidden">
+      <Box ref={box}>
         <Content>
           <div className="heading-large">Settings</div>
           <div className="heading-small">Timer</div>
           <Options>
             <Row>
               Pomodoro:
-              <NumberInput>
-                <input
-                  id="pomodoro"
-                  type="number"
-                  min="1"
-                  max="180"
-                  defaultValue={pomodoroTime}
-                  onChange={handleTimeChange}
-                />
-              </NumberInput>{" "}
+              <NumberInput
+                id="pomodoro"
+                type="number"
+                min="1"
+                max="180"
+                defaultValue={pomodoroTime}
+                onChange={handleTimeChange}
+              />
               Minutes
             </Row>
             <Row>
               Short Break:
-              <NumberInput>
-                <input
-                  id="shortBreak"
-                  type="number"
-                  min="1"
-                  max="30"
-                  defaultValue={shortBreakTime}
-                  onChange={handleTimeChange}
-                />
-              </NumberInput>{" "}
+              <NumberInput
+                id="shortBreak"
+                type="number"
+                min="1"
+                max="30"
+                defaultValue={shortBreakTime}
+                onChange={handleTimeChange}
+              />
               Minutes
             </Row>
             <Row>
               Long Break:
-              <NumberInput>
-                <input
-                  id="longBreak"
-                  type="number"
-                  min="1"
-                  max="30"
-                  defaultValue={longBreakTime}
-                  onChange={handleTimeChange}
-                />
-              </NumberInput>{" "}
+              <NumberInput
+                id="longBreak"
+                type="number"
+                min="1"
+                max="30"
+                defaultValue={longBreakTime}
+                onChange={handleTimeChange}
+              />
               Minutes
             </Row>
           </Options>
           <div className="heading-small">Cycle</div>
           <Options>
             <Row>
-              <NumberInput>
-                <input
-                  id="threshold"
-                  type="number"
-                  min="2"
-                  max="30"
-                  defaultValue={cycleThreshold}
-                  onChange={handleThresholdChange}
-                />
-              </NumberInput>
+              <NumberInput
+                id="threshold"
+                type="number"
+                min="1"
+                max="30"
+                defaultValue={cycleThreshold}
+                onChange={handleThresholdChange}
+              />
               Pomodoros per cycle
             </Row>
           </Options>
@@ -149,7 +145,7 @@ const Settings = () => {
                   </MenuItem>
                 ))}
               </Select>
-              <Button variant="contained" onClick={playSound}>
+              <Button variant="contained" onClick={playSound} disableElevation>
                 Listen
               </Button>
             </Row>
@@ -157,8 +153,8 @@ const Settings = () => {
           <div className="heading-small">Wallpaper</div>
           <Options>
             <Row>
-              <Button variant="contained" onClick={handleRandomize}>
-                Randomize
+              <Button variant="contained" onClick={handleRandomize} disableElevation>
+                Random Image
               </Button>
             </Row>
             <label htmlFor="file">
@@ -169,7 +165,7 @@ const Settings = () => {
                 }}
                 onDragOver={(e) => e.preventDefault()}
               >
-                Click or drop your image
+                Click or drop your own image
               </DragNDrop>
             </label>
             <input
@@ -245,31 +241,18 @@ const Row = styled.div`
   margin-bottom: 10px;
 `;
 
-const NumberInput = styled.div`
-  background: white;
-  padding: 10px 8px;
-  border-radius: 4px;
-  max-width: 70px;
-  & > input {
-    border: none;
-    padding: 0;
-    width: 100%;
-    font-size: 0.9rem;
-    text-align: center;
-  }
-`;
-
 const DragNDrop = styled.div`
-  border: 1px dashed blue;
+  border: 1px dashed #b5442b;
   border-radius: 6px;
-  background: #8a77b576;
+  background: #f88f75;
   color: white;
   display: grid;
   place-content: center center;
   min-height: 50px;
+  user-select: none;
   cursor: pointer;
   &:hover {
-    background: #8a77b5a8;
+    background: #ed5b3a;
   }
   margin-bottom: 14px;
 `;

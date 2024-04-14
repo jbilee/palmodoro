@@ -17,6 +17,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: "0.9rem",
+          width: "100px",
         },
       },
     },
