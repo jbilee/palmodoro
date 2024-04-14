@@ -231,30 +231,39 @@ const Tab = styled.div`
   font-size: 1.7rem;
   transition: 300ms;
   cursor: pointer;
+  &.tab-open {
+    margin-right: 315px;
+  }
   @media (min-width: 600px) {
     margin-top: 15px;
     font-size: 2rem;
     max-height: 60px;
-  }
-  &.tab-open {
-    margin-right: 330px;
+    &.tab-open {
+      margin-right: 330px;
+    }
   }
 `;
 
 const Box = styled.div`
-  width: 330px;
+  width: 315px;
   background: #130d1dd2;
   transition: 300ms;
   overflow-y: auto;
+  @media (min-width: 600px) {
+    width: 330px;
+  }
 `;
 
 const Content = styled.div`
-  padding: 24px 28px;
+  padding: 24px 20px;
   & h2 {
     text-align: center;
   }
   & input[type="file"] {
     display: none;
+  }
+  @media (min-width: 600px) {
+    padding: 24px 28px;
   }
 `;
 
