@@ -39,12 +39,15 @@ const NumberInput = ({ id, type, min, max, defaultValue, onChange }: InputHTMLAt
 const Wrapper = styled.div<{ $isFocused: boolean }>`
   box-sizing: border-box;
   background: white;
-  max-width: 70px;
+  width: 60px;
   height: 36px;
   border-radius: 4px;
   border: ${({ $isFocused }) => ($isFocused ? "1px solid #ed5b3a" : "1px solid rgba(0, 0, 0, 0.23)")};
   &:hover {
     border: 1px solid #ed5b3a;
+  }
+  @media (min-width: 600px) {
+    width: 70px;
   }
 `;
 
