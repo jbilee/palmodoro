@@ -96,20 +96,26 @@ const Wrapper = styled.div`
 
 const Header = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 8px;
+  @media (min-width: 600px) {
+    gap: 14px;
+  }
 `;
 
 const Mode = styled.div<{ $isCurrentMode: boolean }>`
   border-radius: 6px;
   background: ${({ $isCurrentMode }) => ($isCurrentMode ? "#ed5b3a" : "#7b6d879e")};
   color: white;
-  width: 120px;
+  width: 100px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 130ms;
   cursor: pointer;
+  @media (min-width: 600px) {
+    width: 120px;
+  }
 `;
 
 const Session = styled.div`

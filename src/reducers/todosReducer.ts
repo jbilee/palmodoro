@@ -28,8 +28,11 @@ const todosSlice = createSlice({
       const [target] = state.filter((state) => state.id === action.payload.id);
       target.checked = action.payload.checked;
     },
+    clearTodos: () => {
+      return [];
+    },
   },
 });
 
-export const { addTodo, deleteTodo, toggleTodo } = todosSlice.actions;
+export const { addTodo, deleteTodo, toggleTodo, clearTodos } = todosSlice.actions;
 export default todosSlice.reducer;

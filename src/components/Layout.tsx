@@ -26,8 +26,9 @@ const Background = styled.div<{ $image: string }>`
 
 const Foreground = styled.div`
   display: grid;
-  padding: 48px 24px 0;
+  padding: 54px 24px 0;
   backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   height: inherit;
   @media (min-width: 600px) {
     padding: 0;

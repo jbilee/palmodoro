@@ -12,11 +12,14 @@ const Todos = () => {
 };
 
 const Wrapper = styled.div`
-  align-self: flex-end;
   display: flex;
   flex-direction: column-reverse;
   gap: 12px;
+  @media (min-width: 600px) {
+    width: 520px;
+  }
   @media (min-width: 1200px) {
+    align-self: flex-end;
     flex-direction: column;
   }
 `;

@@ -51,7 +51,9 @@ const TodoList = () => {
 };
 
 const Wrapper = styled.div`
-  max-height: 280px;
+  max-height: 260px;
+  padding-right: 10px;
+  scrollbar-gutter: stable;
   overflow-y: auto;
 `;
 
