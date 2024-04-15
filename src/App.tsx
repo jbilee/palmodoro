@@ -46,12 +46,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiFormControlLabel: {
-      styleOverrides: {
-        root: ({ ownerState }) => ({ opacity: ownerState.checked ? 0.5 : 1 }),
-        label: ({ ownerState }) => ({ textDecoration: ownerState.checked ? "line-through" : "none" }),
-      },
-    },
   },
 });
 

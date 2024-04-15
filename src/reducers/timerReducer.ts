@@ -1,8 +1,15 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { getStorage } from "../utils/utilities";
+import type { SettingsProps } from "./settingsReducer";
+
+const loadThreshold = () => {
+  const settings = getStorage<SettingsProps>("palmo-s");
+  return settings ? settings.cycleThreshold : 4;
+};
 
 const initialState = {
   currentMode: "pomodoro",
-  cycleThreshold: 4,
+  cycleThreshold: loadThreshold(),
   currentCycle: 1,
 };
 
