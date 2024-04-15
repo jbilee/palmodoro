@@ -57,10 +57,13 @@ const TodoList = () => {
 };
 
 const Wrapper = styled.div`
-  max-height: 260px;
+  max-height: 210px;
   padding-right: 10px;
   scrollbar-gutter: stable;
   overflow-y: auto;
+  @media (min-width: 600px) {
+    max-height: 260px;
+  }
 `;
 
 const ListItem = styled.li`
@@ -68,6 +71,7 @@ const ListItem = styled.li`
   gap: 6px;
   align-items: center;
   transition: 200ms;
+  text-shadow: 0px 0px 3px #332558;
   &:hover {
     opacity: 0.8;
   }
@@ -76,12 +80,5 @@ const ListItem = styled.li`
 const StyledFormControlLabel = styled(FormControlLabel)`
   flex-grow: 1;
 `;
-
-// const WhiteCheckbox = styled(Checkbox)<CheckboxProps>({
-//   color: "white",
-//   "& .MuiSvgIcon-root": {
-//     color: "white"
-//   }
-// });
 
 export default TodoList;

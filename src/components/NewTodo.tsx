@@ -10,7 +10,7 @@ const NewTodo = () => {
   const dispatch = useAppDispatch();
 
   const handleChange = (input: string) => {
-    if (input.length > 30) return;
+    if (input.length > 50) return;
     setTodo(input);
   };
 
@@ -30,7 +30,7 @@ const NewTodo = () => {
         <Button type="submit" variant="contained" disableElevation>
           Add
         </Button>
-        <Button variant="contained" color="secondary" disabled={todoCount === 0} onClick={handleClear}>
+        <Button variant="contained" color="secondary" disableElevation disabled={todoCount === 0} onClick={handleClear}>
           Clear
         </Button>
       </Content>
