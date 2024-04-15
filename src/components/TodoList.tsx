@@ -36,7 +36,13 @@ const TodoList = () => {
         {todos.map(({ id, text, checked }) => (
           <ListItem key={id}>
             <StyledFormControlLabel
-              control={<Checkbox checked={checked} onChange={(e) => handleChange(id as number, e.target.checked)} />}
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={(e) => handleChange(id as number, e.target.checked)}
+                  disableRipple
+                />
+              }
               label={text}
               checked={checked}
             />
@@ -61,6 +67,7 @@ const ListItem = styled.li`
   display: flex;
   gap: 6px;
   align-items: center;
+  transition: 200ms;
   &:hover {
     opacity: 0.8;
   }
