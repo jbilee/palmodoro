@@ -7,11 +7,7 @@ export const calculateMinutes = (time: number) => {
 };
 
 export const calculateSeconds = (time: number) => {
-  return (
-    time -
-    Math.floor(time / 3600) * 3600 -
-    Math.floor((time - Math.floor(time / 3600) * 3600) / 60) * 60
-  );
+  return time - Math.floor(time / 3600) * 3600 - Math.floor((time - Math.floor(time / 3600) * 3600) / 60) * 60;
 };
 
 export const getRandomValue = (cap: number) => Math.floor(Math.random() * (cap + 1));
@@ -19,4 +15,14 @@ export const getRandomValue = (cap: number) => Math.floor(Math.random() * (cap +
 export const playAudio = (path: string) => {
   const audio = new Audio(path);
   audio.play();
+};
+
+export const getStorage = <T>(key: string): T | undefined => {
+  const storedData = localStorage.getItem(key);
+  if (!storedData) return undefined;
+  return JSON.parse(storedData);
+};
+
+export const saveToStorage = <T>(state: T, key: string) => {
+  localStorage.setItem(key, JSON.stringify(state));
 };

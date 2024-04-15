@@ -35,7 +35,7 @@ const TodoList = () => {
       <ul>
         {todos.map(({ id, text, checked }) => (
           <ListItem key={id}>
-            <StyledFormControlLabel
+            <FormControlLabel
               control={
                 <Checkbox
                   checked={checked}
@@ -45,6 +45,11 @@ const TodoList = () => {
               }
               label={text}
               checked={checked}
+              sx={{
+                opacity: checked ? 0.5 : 1,
+                textDecoration: checked ? "line-through" : "none",
+                flexGrow: 1,
+              }}
             />
             <InteractiveIcon>
               <HiTrash onClick={() => handleDelete(id)} />
@@ -57,7 +62,7 @@ const TodoList = () => {
 };
 
 const Wrapper = styled.div`
-  max-height: 210px;
+  height: 200px;
   padding-right: 10px;
   scrollbar-gutter: stable;
   overflow-y: auto;
@@ -75,10 +80,6 @@ const ListItem = styled.li`
   &:hover {
     opacity: 0.8;
   }
-`;
-
-const StyledFormControlLabel = styled(FormControlLabel)`
-  flex-grow: 1;
 `;
 
 export default TodoList;

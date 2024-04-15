@@ -1,27 +1,20 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { getStorage, saveToStorage } from "../utils/utilities";
 import { SFX } from "../utils/constants";
 
 export type SettingsProps = {
   pomodoro: number;
   shortBreak: number;
   longBreak: number;
+  cycleThreshold: number;
   sound: { legend: string; url: string };
 };
 
-const getStorage = (): SettingsProps | undefined => {
-  const storedData = localStorage.getItem("palmo-s");
-  if (!storedData) return undefined;
-  return JSON.parse(storedData);
-};
-
-const saveToStorage = (state: SettingsProps) => {
-  localStorage.setItem("palmo-s", JSON.stringify(state));
-};
-
-const initialState = getStorage() || {
+const initialState = getStorage<SettingsProps>("palmo-s") || {
   pomodoro: 25,
   shortBreak: 5,
   longBreak: 20,
+  cycleThreshold: 4,
   sound: {
     legend: "Ping",
     url: "/src/assets/sounds/ping-82822.mp3",
@@ -51,7 +44,12 @@ const settingsSlice = createSlice({
         default:
           return { ...state };
       }
-      saveToStorage(newState);
+      saveToStorage(newState, "palmo-s");
+      return newState;
+    },
+    saveThreshold: (state, action: PayloadAction<number>) => {
+      const newState = { ...state, cycleThreshold: action.payload };
+      saveToStorage(newState, "palmo-s");
       return newState;
     },
     saveSound: (state, action: PayloadAction<string>) => {
@@ -60,11 +58,11 @@ const settingsSlice = createSlice({
         url: string;
       };
       const newState = { ...state, sound };
-      saveToStorage(newState);
+      saveToStorage(newState, "palmo-s");
       return newState;
     },
   },
 });
 
-export const { saveTime, saveSound } = settingsSlice.actions;
+export const { saveTime, saveThreshold, saveSound } = settingsSlice.actions;
 export default settingsSlice.reducer;

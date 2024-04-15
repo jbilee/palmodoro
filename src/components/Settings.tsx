@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MdLightbulb } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { saveSound, saveTime } from "../reducers/settingsReducer";
+import { saveSound, saveThreshold, saveTime } from "../reducers/settingsReducer";
 import { changeThreshold } from "../reducers/timerReducer";
 import { randomizeWallpaper, uploadWallpaper } from "../reducers/wallpaperReducer";
 import NumberInput from "./NumberInput";
@@ -57,6 +57,7 @@ const Settings = () => {
     if (cycle < Number(e.target.min)) cycle = Number(e.target.min);
     if (cycle > Number(e.target.max)) cycle = Number(e.target.max);
     dispatch(changeThreshold(cycle));
+    dispatch(saveThreshold(cycle));
     e.target.value = cycle.toString();
   };
 
