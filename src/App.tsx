@@ -11,6 +11,14 @@ const theme = createTheme({
     primary: {
       main: "#ed5b3a",
     },
+    secondary: {
+      main: "#5c497c",
+    },
+    action: {
+      disabled: "#ffffff8d",
+      disabledBackground: "#00000095",
+      disabledOpacity: 0.5,
+    },
   },
   components: {
     MuiSelect: {

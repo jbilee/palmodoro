@@ -1,10 +1,12 @@
 import { useState, type FormEventHandler } from "react";
+import { Button } from "@mui/material";
 import styled from "styled-components";
-import { useAppDispatch } from "../hooks";
-import { addTodo } from "../reducers/todosReducer";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { addTodo, clearTodos } from "../reducers/todosReducer";
 
 const NewTodo = () => {
   const [todo, setTodo] = useState("");
+  const todoCount = useAppSelector((state) => state.todos.length);
   const dispatch = useAppDispatch();
 
   const handleChange = (input: string) => {
@@ -19,11 +21,18 @@ const NewTodo = () => {
     setTodo("");
   };
 
+  const handleClear = () => dispatch(clearTodos());
+
   return (
     <form onSubmit={handleSubmit}>
       <Content>
         <InputArea placeholder="What's my plan?" value={todo} onChange={(e) => handleChange(e.target.value)} />
-        <button>Add</button>
+        <Button type="submit" variant="contained" disableElevation>
+          Add
+        </Button>
+        <Button variant="contained" color="secondary" disabled={todoCount === 0} onClick={handleClear}>
+          Clear
+        </Button>
       </Content>
     </form>
   );
@@ -31,23 +40,15 @@ const NewTodo = () => {
 
 const Content = styled.div`
   display: flex;
-  gap: 12px;
-
-  button {
-    border: none;
-    background: black;
-    color: white;
-    border-radius: 6px;
-    padding: 2px 12px;
-  }
+  gap: 6px;
 `;
 
 const InputArea = styled.input`
   resize: none;
   border: none;
-  width: 300px;
+  width: 100%;
   box-shadow: 0 0 15px rgba(29, 101, 122, 0.15);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 8px 12px;
 `;
 
