@@ -13,7 +13,6 @@ import { SFX } from "../utils/constants";
 
 const Settings = () => {
   const dispatch = useAppDispatch();
-  const tab = useRef<null | HTMLDivElement>(null);
   const box = useRef<null | HTMLDivElement>(null);
   const background = useRef<null | HTMLDivElement>(null);
   const selection = useRef<null | HTMLSelectElement>(null);
@@ -26,7 +25,6 @@ const Settings = () => {
   useEffect(() => {
     window.addEventListener("click", (e) => {
       if (e.target === background.current && !background.current?.classList.contains("tab-closed")) {
-        tab.current?.classList.toggle("tab-open");
         box.current?.classList.toggle("hidden");
         background.current?.classList.toggle("tab-closed");
       }
@@ -34,11 +32,9 @@ const Settings = () => {
   }, []);
 
   const handleClick = () => {
-    if (!tab.current || !box.current || !background.current) return;
-    const tabElem = tab.current as HTMLDivElement;
+    if (!box.current || !background.current) return;
     const boxElem = box.current as HTMLDivElement;
     const bgElem = background.current as HTMLDivElement;
-    tabElem.classList.toggle("tab-open");
     boxElem.classList.toggle("hidden");
     bgElem.classList.toggle("tab-closed");
   };
@@ -85,11 +81,11 @@ const Settings = () => {
 
   return (
     <>
-      <Tab ref={tab} onClick={handleClick}>
-        <RiSettings5Fill />
-      </Tab>
       <Wrapper>
         <Box ref={box} className="hidden">
+          <Tab onClick={handleClick}>
+            <RiSettings5Fill />
+          </Tab>
           <Content>
             <div className="heading-large">Settings</div>
             <div className="heading-small">Timer</div>
@@ -218,10 +214,10 @@ const Wrapper = styled.div`
 `;
 
 const Tab = styled.div`
-  position: fixed;
+  position: absolute;
   z-index: 10;
   top: 0;
-  right: 0;
+  left: -48px;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   display: grid;
@@ -229,19 +225,14 @@ const Tab = styled.div`
   padding: 10px 12px;
   max-height: 46px;
   background: #130d1dd2;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   transition: 300ms;
   cursor: pointer;
-  &.tab-open {
-    margin-right: 315px;
-  }
   @media (min-width: 600px) {
     margin-top: 15px;
     font-size: 2rem;
     max-height: 60px;
-    &.tab-open {
-      margin-right: 330px;
-    }
+    left: -56px;
   }
 `;
 
