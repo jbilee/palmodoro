@@ -26,3 +26,9 @@ export const getStorage = <T>(key: string): T | undefined => {
 export const saveToStorage = <T>(state: T, key: string) => {
   localStorage.setItem(key, JSON.stringify(state));
 };
+
+export const isMobile = () => {
+  const agent = navigator.userAgent;
+  const regex = /Android|iPad|iPhone/;
+  return regex.test(agent);
+};

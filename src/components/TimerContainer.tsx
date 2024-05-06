@@ -19,7 +19,12 @@ const TimerContainer = () => {
 
   useEffect(() => {
     if (isRunning) playAudio(timerSound);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMode]);
+
+  const startTimer = () => {
+    setIsRunning(true);
+  };
 
   const setIntervalId = useCallback(
     (id: number) => {
@@ -27,10 +32,6 @@ const TimerContainer = () => {
     },
     [intervalId]
   );
-
-  const startTimer = () => {
-    setIsRunning(true);
-  };
 
   const changeMode = useCallback(() => {
     dispatch(getNextMode());
