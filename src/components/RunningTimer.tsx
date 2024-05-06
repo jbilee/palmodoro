@@ -63,7 +63,6 @@ const RunningTimer = memo(function RunningTimer({ currentMode, setIntervalId, ch
   };
 
   const startTimer = () => {
-    timeLeft.current = timeSelector * 60;
     currentInterval.current = setInterval(() => {
       if (timeLeft.current === 0) {
         timeLeft.current -= 1;
@@ -76,6 +75,7 @@ const RunningTimer = memo(function RunningTimer({ currentMode, setIntervalId, ch
     setIntervalId(currentInterval.current);
   };
 
+  timeLeft.current = timeSelector * 60;
   startTimer();
   updateTime();
 
