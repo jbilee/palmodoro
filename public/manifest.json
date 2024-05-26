@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "display": "standalone",
+  "start_url": "/",
+  "name": "Palmodoro",
+  "short_name": "Palmodoro",
+  "icons": [
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
