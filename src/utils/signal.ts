@@ -6,5 +6,5 @@ export default async function runOneSignal() {
     allowLocalhostAsSecureOrigin: true,
     safari_web_id: "web.onesignal.auto.630456c0-6fee-4c63-83c2-4e6e2f9684cf",
   });
-  await OneSignal.Notifications.requestPermission();
+  await OneSignal.Slidedown.promptPush();
 }
