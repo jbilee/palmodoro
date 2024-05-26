@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material";
 import styled from "styled-components";
@@ -5,6 +6,7 @@ import { store } from "./store";
 import Layout from "./components/Layout";
 import TimerContainer from "./components/TimerContainer";
 import Todos from "./components/Todos";
+import runOneSignal from "./utils/signal";
 
 const theme = createTheme({
   palette: {
@@ -50,6 +52,9 @@ const theme = createTheme({
 });
 
 function App() {
+  useEffect(() => {
+    runOneSignal();
+  }, []);
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
