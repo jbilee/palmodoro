@@ -68,6 +68,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: rgba(31, 13, 25, 0.7);
+  @media (min-width: 750px) {
+    padding: 4rem;
+    border-radius: 3rem;
+  }
   @media (min-width: 1200px) {
     flex-direction: row;
   }
