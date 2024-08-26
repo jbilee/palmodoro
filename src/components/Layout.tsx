@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import Settings from "./Settings";
+import Settings from "./settings/Settings";
 import { useAppSelector } from "../hooks";
-import type { ReactNode } from "react";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const wallpaper = useAppSelector((state) => state.wallpaper);
   return (
     <Background $image={wallpaper}>

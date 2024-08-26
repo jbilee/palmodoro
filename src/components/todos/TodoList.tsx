@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import { FormControlLabel } from "@mui/material";
-import styled from "styled-components";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { HiTrash } from "react-icons/hi";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { deleteTodo, toggleTodo } from "../reducers/todosReducer";
-import { InteractiveIcon } from "./TimerContainer";
+import styled from "styled-components";
+import { InteractiveIcon } from "../timer/TimerContainer";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { deleteTodo, toggleTodo } from "../../reducers/todosReducer";
 
 const TodoList = () => {
   const wrapper = useRef<null | HTMLDivElement>(null);

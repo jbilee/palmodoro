@@ -4,8 +4,8 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import styled from "styled-components";
 import { store } from "./store";
 import Layout from "./components/Layout";
-import TimerContainer from "./components/TimerContainer";
-import Todos from "./components/Todos";
+import TimerContainer from "./components/timer/TimerContainer";
+import Todos from "./components/todos/Todos";
 import runOneSignal from "./utils/signal";
 
 const theme = createTheme({

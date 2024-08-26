@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { FaUndoAlt } from "react-icons/fa";
 import RunningTimer from "./RunningTimer";
 import StaticTimer from "./StaticTimer";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { getNextMode, resetCycle, selectMode } from "../reducers/timerReducer";
-import { playAudio } from "../utils/utilities";
-import { MODE_TEXT } from "../utils/constants";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { getNextMode, resetCycle, selectMode } from "../../reducers/timerReducer";
+import { playAudio } from "../../utils/utilities";
+import { MODE_TEXT } from "../../utils/constants";
 
 const TimerContainer = () => {
   const [isRunning, setIsRunning] = useState(false);
