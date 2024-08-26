@@ -29,10 +29,10 @@ const Foreground = styled.div`
   padding: 54px 24px 0;
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
-  height: inherit;
   @media (min-width: 600px) {
     padding: 0;
-    place-content: center center;
+    place-content: center;
+    height: inherit;
   }
 `;
 
