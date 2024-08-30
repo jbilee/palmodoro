@@ -6,7 +6,7 @@ import StaticTimer from "./StaticTimer";
 import StyledIcon from "../common/StyledIcon";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getNextMode, resetCycle, selectMode } from "../../reducers/timerReducer";
-import { playAudio } from "../../utils/utilities";
+import { playAudio } from "../../utils/media";
 import { MODE_TEXT } from "../../utils/constants";
 
 const TimerContainer = () => {

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { getRandomValue } from "../utils/utilities";
+import { getRandomValue } from "../utils/calculations";
 import { WALLPAPERS } from "../utils/constants";
 
 // const IMAGE_PATH = "../assets/";

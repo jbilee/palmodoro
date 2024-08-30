@@ -1,7 +1,7 @@
 import { FaPlayCircle } from "react-icons/fa";
 import StyledIcon from "../common/StyledIcon";
 import { useAppSelector } from "../../hooks";
-import { calculateHours, calculateMinutes } from "../../utils/utilities";
+import { calculateHours, calculateMinutes } from "../../utils/calculations";
 import type { SettingsProps } from "../../reducers/settingsReducer";
 
 interface TimerProps {

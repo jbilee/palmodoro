@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { getStorage, saveToStorage } from "../utils/utilities";
+import { getStorage, saveToStorage } from "../utils/storage";
 import { SFX } from "../utils/constants";
 
 export type SettingsProps = {

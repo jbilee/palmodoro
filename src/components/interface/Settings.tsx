@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { saveSound, saveThreshold, saveTime } from "../../reducers/settingsReducer";
 import { changeThreshold } from "../../reducers/timerReducer";
 import { randomizeWallpaper, uploadWallpaper } from "../../reducers/wallpaperReducer";
-import { playAudio } from "../../utils/utilities";
+import { playAudio } from "../../utils/media";
 import { SFX } from "../../utils/constants";
 
 const Settings = () => {
