@@ -1,15 +1,15 @@
-import { useEffect, useRef, type ChangeEvent } from "react";
+import { useEffect, useRef } from "react";
 import { Button, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
-import styled from "styled-components";
 import { MdLightbulb } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { saveSound, saveThreshold, saveTime } from "../reducers/settingsReducer";
-import { changeThreshold } from "../reducers/timerReducer";
-import { randomizeWallpaper, uploadWallpaper } from "../reducers/wallpaperReducer";
-import NumberInput from "./NumberInput";
-import { playAudio } from "../utils/utilities";
-import { SFX } from "../utils/constants";
+import styled from "styled-components";
+import NumberInput from "../NumberInput";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { saveSound, saveThreshold, saveTime } from "../../reducers/settingsReducer";
+import { changeThreshold } from "../../reducers/timerReducer";
+import { randomizeWallpaper, uploadWallpaper } from "../../reducers/wallpaperReducer";
+import { playAudio } from "../../utils/utilities";
+import { SFX } from "../../utils/constants";
 
 const Settings = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +39,7 @@ const Settings = () => {
     bgElem.classList.toggle("tab-closed");
   };
 
-  const handleTimeChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let time = Number(e.target.value);
     if (time < Number(e.target.min)) time = Number(e.target.min);
     if (time > Number(e.target.max)) time = Number(e.target.max);
@@ -48,7 +48,7 @@ const Settings = () => {
     e.target.value = time.toString();
   };
 
-  const handleThresholdChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleThresholdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let cycle = Number(e.target.value);
     if (cycle < Number(e.target.min)) cycle = Number(e.target.min);
     if (cycle > Number(e.target.max)) cycle = Number(e.target.max);

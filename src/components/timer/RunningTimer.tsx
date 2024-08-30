@@ -1,8 +1,8 @@
 import { memo, useEffect, useRef } from "react";
 import { FaStopCircle } from "react-icons/fa";
-import { useAppSelector } from "../hooks";
 import { InteractiveIcon } from "./TimerContainer";
-import { calculateHours, calculateMinutes, calculateSeconds, isMobile } from "../utils/utilities";
+import { useAppSelector } from "../../hooks";
+import { calculateHours, calculateMinutes, calculateSeconds, isMobile } from "../../utils/utilities";
 
 interface TimerProps {
   currentMode: string;

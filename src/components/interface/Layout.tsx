@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import Settings from "./Settings";
-import { useAppSelector } from "../hooks";
-import type { ReactNode } from "react";
+import { useAppSelector } from "../../hooks";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const wallpaper = useAppSelector((state) => state.wallpaper);
   return (
     <Background $image={wallpaper}>
@@ -29,10 +28,10 @@ const Foreground = styled.div`
   padding: 54px 24px 0;
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
-  height: inherit;
   @media (min-width: 600px) {
     padding: 0;
-    place-content: center center;
+    place-content: center;
+    height: inherit;
   }
 `;
 

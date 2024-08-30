@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material";
 import styled from "styled-components";
+import Layout from "./components/interface/Layout";
+import TimerContainer from "./components/timer/TimerContainer";
+import Todos from "./components/todos/Todos";
 import { store } from "./store";
-import Layout from "./components/Layout";
-import TimerContainer from "./components/TimerContainer";
-import Todos from "./components/Todos";
-import runOneSignal from "./utils/signal";
+import runOneSignal from "./utils/one-signal";
 
 const theme = createTheme({
   palette: {
@@ -73,6 +73,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: rgba(31, 13, 25, 0.7);
+  @media (min-width: 750px) {
+    padding: 4rem;
+    border-radius: 3rem;
+  }
   @media (min-width: 1200px) {
     flex-direction: row;
   }

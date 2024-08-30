@@ -1,8 +1,8 @@
 import { FaPlayCircle } from "react-icons/fa";
 import { InteractiveIcon } from "./TimerContainer";
-import { useAppSelector } from "../hooks";
-import { calculateHours, calculateMinutes } from "../utils/utilities";
-import type { SettingsProps } from "../reducers/settingsReducer";
+import { useAppSelector } from "../../hooks";
+import { calculateHours, calculateMinutes } from "../../utils/utilities";
+import type { SettingsProps } from "../../reducers/settingsReducer";
 
 interface TimerProps {
   currentMode: string;
@@ -10,14 +10,11 @@ interface TimerProps {
 }
 
 const StaticTimer = ({ currentMode, startTimer }: TimerProps) => {
-  const timeSelector = useAppSelector(
-    (state) => (state.settings[currentMode as keyof SettingsProps] as number) * 60
-  );
+  const timeSelector = useAppSelector((state) => (state.settings[currentMode as keyof SettingsProps] as number) * 60);
   const hours = calculateHours(timeSelector);
   const minutes = calculateMinutes(timeSelector);
 
-  const displayTimeString = () =>
-    `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
+  const displayTimeString = () => `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
 
   return (
     <>
