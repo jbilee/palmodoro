@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material";
 import styled from "styled-components";
@@ -52,9 +51,6 @@ const theme = createTheme({
 });
 
 function App() {
-  useEffect(() => {
-    runOneSignal();
-  }, []);
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
