@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaUndoAlt } from "react-icons/fa";
 import RunningTimer from "./RunningTimer";
 import StaticTimer from "./StaticTimer";
+import StyledIcon from "../common/StyledIcon";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getNextMode, resetCycle, selectMode } from "../../reducers/timerReducer";
 import { playAudio } from "../../utils/utilities";
@@ -77,9 +78,9 @@ const TimerContainer = () => {
         <span>
           Session: {currentCycle} / {cycleThreshold}
         </span>
-        <InteractiveIcon>
+        <StyledIcon>
           <FaUndoAlt onClick={handleReset} />
-        </InteractiveIcon>
+        </StyledIcon>
       </Session>
     </Wrapper>
   );
@@ -123,11 +124,6 @@ const Session = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-`;
-
-export const InteractiveIcon = styled.span`
-  line-height: 5px;
-  cursor: pointer;
 `;
 
 export default TimerContainer;

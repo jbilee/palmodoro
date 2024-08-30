@@ -1,5 +1,5 @@
 import { FaPlayCircle } from "react-icons/fa";
-import { InteractiveIcon } from "./TimerContainer";
+import StyledIcon from "../common/StyledIcon";
 import { useAppSelector } from "../../hooks";
 import { calculateHours, calculateMinutes } from "../../utils/utilities";
 import type { SettingsProps } from "../../reducers/settingsReducer";
@@ -19,9 +19,9 @@ const StaticTimer = ({ currentMode, startTimer }: TimerProps) => {
   return (
     <>
       <span className="timer">{displayTimeString()}</span>
-      <InteractiveIcon>
+      <StyledIcon>
         <FaPlayCircle size="3.5rem" onClick={startTimer} />
-      </InteractiveIcon>
+      </StyledIcon>
     </>
   );
 };
