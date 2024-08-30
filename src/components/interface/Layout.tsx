@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Settings from "./settings/Settings";
-import { useAppSelector } from "../hooks";
+import Settings from "./Settings";
+import { useAppSelector } from "../../hooks";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const wallpaper = useAppSelector((state) => state.wallpaper);
