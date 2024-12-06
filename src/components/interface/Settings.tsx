@@ -4,7 +4,7 @@ import { MdLightbulb } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import styled from "styled-components";
 import NumberInput from "../NumberInput";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { saveSound, saveThreshold, saveTime } from "../../reducers/settingsReducer";
 import { changeThreshold } from "../../reducers/timerReducer";
 import { randomizeWallpaper, uploadWallpaper } from "../../reducers/wallpaperReducer";

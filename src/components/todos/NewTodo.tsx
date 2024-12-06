@@ -1,7 +1,7 @@
 import { useState, type FormEventHandler } from "react";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { addTodo, clearTodos } from "../../reducers/todosReducer";
 
 const NewTodo = () => {

@@ -1,6 +1,6 @@
 import { FaPlayCircle } from "react-icons/fa";
 import StyledIcon from "../common/StyledIcon";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../reducers/hooks";
 import { calculateHours, calculateMinutes } from "../../utils/calculations";
 import type { SettingsProps } from "../../reducers/settingsReducer";
 

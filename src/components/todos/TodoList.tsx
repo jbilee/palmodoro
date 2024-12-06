@@ -4,7 +4,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { HiTrash } from "react-icons/hi";
 import styled from "styled-components";
 import StyledIcon from "../common/StyledIcon";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { deleteTodo, toggleTodo } from "../../reducers/todosReducer";
 
 const TodoList = () => {

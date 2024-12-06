@@ -1,8 +1,9 @@
 import { memo, useEffect, useRef } from "react";
 import { FaStopCircle } from "react-icons/fa";
-import { InteractiveIcon } from "./TimerContainer";
-import { useAppSelector } from "../../hooks";
-import { calculateHours, calculateMinutes, calculateSeconds, isMobile } from "../../utils/utilities";
+import StyledIcon from "../common/StyledIcon";
+import { useAppSelector } from "../../reducers/hooks";
+import { getTime } from "../../utils/calculations";
+import { isMobile } from "../../utils/user-agent";
 
 interface TimerProps {
   currentMode: string;
@@ -50,12 +51,6 @@ const RunningTimer = memo(function RunningTimer({ currentMode, setIntervalId, ch
 
   if (currentInterval.current) clearInterval(currentInterval.current);
 
-  const getTime = (time: number) => {
-    return `${calculateHours(time).toString().padStart(2, "0")}:${calculateMinutes(time)
-      .toString()
-      .padStart(2, "0")}:${calculateSeconds(time).toString().padStart(2, "0")}`;
-  };
-
   const updateTime = () => {
     if (!elem.current) return;
     (elem.current as HTMLElement).innerText = getTime(timeLeft.current);
@@ -84,9 +79,9 @@ const RunningTimer = memo(function RunningTimer({ currentMode, setIntervalId, ch
       <span ref={elem} className="timer">
         {getTime(timeLeft.current)}
       </span>
-      <InteractiveIcon>
+      <StyledIcon>
         <FaStopCircle size="3.5rem" onClick={stopTimer} />
-      </InteractiveIcon>
+      </StyledIcon>
     </>
   );
 });
