@@ -4,11 +4,11 @@ import { MdLightbulb } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import styled from "styled-components";
 import NumberInput from "../NumberInput";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { saveSound, saveThreshold, saveTime } from "../../reducers/settingsReducer";
 import { changeThreshold } from "../../reducers/timerReducer";
 import { randomizeWallpaper, uploadWallpaper } from "../../reducers/wallpaperReducer";
-import { playAudio } from "../../utils/utilities";
+import { playAudio } from "../../utils/media";
 import { SFX } from "../../utils/constants";
 
 const Settings = () => {
@@ -92,52 +92,24 @@ const Settings = () => {
             <Options>
               <Row>
                 Pomodoro:
-                <NumberInput
-                  id="pomodoro"
-                  type="number"
-                  min="1"
-                  max="180"
-                  defaultValue={pomodoroTime}
-                  onChange={handleTimeChange}
-                />
+                <NumberInput id="pomodoro" max="180" defaultValue={pomodoroTime} onChange={handleTimeChange} />
                 Minutes
               </Row>
               <Row>
                 Short Break:
-                <NumberInput
-                  id="shortBreak"
-                  type="number"
-                  min="1"
-                  max="30"
-                  defaultValue={shortBreakTime}
-                  onChange={handleTimeChange}
-                />
+                <NumberInput id="shortBreak" max="30" defaultValue={shortBreakTime} onChange={handleTimeChange} />
                 Minutes
               </Row>
               <Row>
                 Long Break:
-                <NumberInput
-                  id="longBreak"
-                  type="number"
-                  min="1"
-                  max="30"
-                  defaultValue={longBreakTime}
-                  onChange={handleTimeChange}
-                />
+                <NumberInput id="longBreak" max="30" defaultValue={longBreakTime} onChange={handleTimeChange} />
                 Minutes
               </Row>
             </Options>
             <div className="heading-small">Cycle</div>
             <Options>
               <Row>
-                <NumberInput
-                  id="threshold"
-                  type="number"
-                  min="1"
-                  max="30"
-                  defaultValue={cycleThreshold}
-                  onChange={handleThresholdChange}
-                />
+                <NumberInput id="threshold" max="30" defaultValue={cycleThreshold} onChange={handleThresholdChange} />
                 Pomodoros per cycle
               </Row>
             </Options>

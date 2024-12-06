@@ -3,8 +3,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { HiTrash } from "react-icons/hi";
 import styled from "styled-components";
-import { InteractiveIcon } from "../timer/TimerContainer";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import StyledIcon from "../common/StyledIcon";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { deleteTodo, toggleTodo } from "../../reducers/todosReducer";
 
 const TodoList = () => {
@@ -51,9 +51,9 @@ const TodoList = () => {
                 flexGrow: 1,
               }}
             />
-            <InteractiveIcon>
+            <StyledIcon>
               <HiTrash onClick={() => handleDelete(id)} />
-            </InteractiveIcon>
+            </StyledIcon>
           </ListItem>
         ))}
       </ul>

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { getStorage } from "../utils/utilities";
+import { getStorage } from "../utils/storage";
 import type { SettingsProps } from "./settingsReducer";
 
 const loadThreshold = () => {

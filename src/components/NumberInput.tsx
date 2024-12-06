@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState, type InputHTMLAttributes } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-const NumberInput = ({ id, type, min, max, defaultValue, onChange }: InputHTMLAttributes<HTMLInputElement>) => {
+const NumberInput = ({ id, min = 1, max, defaultValue, onChange }: React.InputHTMLAttributes<HTMLInputElement>) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<null | HTMLInputElement>(null);
 
@@ -22,14 +22,11 @@ const NumberInput = ({ id, type, min, max, defaultValue, onChange }: InputHTMLAt
     <Wrapper $isFocused={isFocused}>
       <Border $isFocused={isFocused}>
         <input
+          type="number"
+          inputMode="numeric"
           ref={inputRef}
-          id={id}
-          type={type}
-          min={min}
-          max={max}
-          defaultValue={defaultValue}
-          onChange={onChange}
           onBlur={() => setIsFocused(false)}
+          {...{ id, min, max, defaultValue, onChange }}
         />
       </Border>
     </Wrapper>
